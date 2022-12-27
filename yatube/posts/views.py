@@ -2,50 +2,158 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.http import HttpResponse
+from django.template import loader
 
 
 # Главная страница
 def index(request):
-    return HttpResponse('Главная страница')
+    # Загружаем шаблон;
+    # шаблоны обычно хранят в отдельной директории.
+    template = loader.get_template('yatube/index.html')
+    # Формируем шаблон
+    return HttpResponse(template.render({}, request))
+
+
+def group_list(request):
+    template = loader.get_template('yatube/posts/group_list.html')
+    # Формируем шаблон
+    return HttpResponse(template.render({}, request))
+
+
+def base(request):
+    template = loader.get_template('yatube/base.html')
+    # Формируем шаблон
+    return HttpResponse(template.render({}, request))
+
+
+def posts(request):
+    template = loader.get_template('yatube/posts/posts.html')
+    # Формируем шаблон
+    return HttpResponse(template.render({}, request))
 
 
 # group posts
 def group_posts(request, slug):
     a = '''<!DOCTYPE html>
-<html>
+<html lang="ru">
   <head>
-    <meta charset="utf-8">
-    <meta name="description" content="Краткое описание страницы">
-    <title>Заголовок для отображения в названии вкладки</title>
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="theme-color" content="#ffffff">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <!-- Другие мета-теги тут -->
+    <!-- Подключили адаптивность  -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Подключили CSS-файл Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+      crossorigin="anonymous">
+    <!-- После стилевого файла Bootstrap можно
+         написать собственные стили в теге <style> -->
+    <!-- А лучше подключить свой CSS-файл и описать свои стили в нём:
+        <link rel="stylesheet" href="css/style.css"> -->
+    <style>
+      .card {
+        background: #eee;
+        box-shadow: rgb(0 0 0 / 20%) 20px 20px 50px;
+      }
+    </style>
   </head>
   <body>
-    <header>
-        Верхняя часть страницы: логотип, контакты
-      <nav>
-        Меню (навигация)
-      </nav>
-    </header>
-    <main>
-      <div>
-  <h5>Аксентий Поприщин</h5>
-  <div>
-    <h6>43 апреля 2000 года</h6>
-    <p>
-      Сегодняшний день — есть день величайшего торжества!
-      В Испании есть король. Он отыскался. Этот король я.
-      Именно только сегодня об этом узнал я.
-    </p>
-    <a class="btn btn-danger" href="">Читать целиком</a>
-    <button type="button" class="btn btn-primary">Primary</button>
-  </div>
-</div>
-    </main>
-    <footer>
-      Подвал
-    </footer>
+
+    <!-- Классы Bootstrap можно применять и к семантическим блокам. -->
+    <div class="container">
+
+      <!-- Начало глобального div.row с двумя колонками: 
+       в левой колонке - имена авторов, в правой - блоки с текстом -->
+      <div class="row">
+
+        <!-- Начало левой колонки сайта со списком авторов -->
+        <aside class="col-12 col-md-3">
+          <ul class="list-group">
+            <li class="list-group-item">Аксентий Поприщин</li>
+            <li class="list-group-item">Робинзон Крузо</li>
+            <li class="list-group-item">Чарли Гордон</li>
+            <li class="list-group-item">Владимир Высоцкий</li>
+          </ul>
+        </aside>
+        <!-- Конец левой колонки сайта -->
+
+        <!-- Начало правой (широкой) колонки сайта -->
+        <section class="col-12 col-md-9">
+
+          <!-- Можно разбить на колонки содержимое любого блока.
+           В этом div.row созданы четыре колонки с анонсами постов -->
+          <div class="row">
+
+            <!-- Начало первой колонки -->
+            <article class="col-12 col-md-6 col-xl-6">
+              <div class="card">
+                <h5 class="card-header">Аксентий Поприщин</h5>
+                <div class="card-body">
+                  <h6 class="card-subtitle">Число 25</h6>
+                  <p>
+                    Сегодня великий инквизитор пришел в мою комнату, но я,
+                    услышавши еще издали шаги его, спрятался под стул.
+                  </p>
+                  <a href="" class="btn btn-primary">Читать целиком</a>
+                </div>
+              </div>
+            </article>
+            <!-- Конец первой колонки -->
+
+            <!-- Начало второй колонки -->
+            <article class="col-12 col-md-6 col-xl-6">
+              <div class="card">
+                <h5 class="card-header">Робинзон Крузо</h5>
+                <div class="card-body">
+                  <h6 class="card-subtitle">25 октября 1659 года</h6>
+                  <p>
+                    Шквальный ветер сотрясал остров целую ночь,
+                    а наутро я увидел, что наш корабль разнесло в щепки.
+                  </p>
+                  <a href="" class="btn btn-primary">Читать целиком</a>
+                </div>
+              </div>
+            </article>
+            <!-- Конец второй колонки -->
+
+            <!-- Начало третьей колонки -->
+            <article class=" col-12 col-md-6 col-xl-6">
+              <div class="card">
+                <h5 class=" card-header">Чарли Гордон</h5>
+                <div class="card-body">
+                  <h6 class="card-subtitle">1 атчет 3 марта</h6>
+                  <p>
+                    Док Штраус сказал што я должен писать все што я думаю и
+                    помню и все што случаеца со мной с севодня. Я не знаю
+                    пачему но он гаварит што это важно штобы они могли
+                    увидить што я падхажу им.
+                  </p>
+                  <a href="" class="btn btn-primary">Читать целиком</a>
+                </div>
+              </div>
+            </article>
+            <!-- Конец третьей колонки -->
+
+            <!-- Начало четвёртой колонки -->
+            <article class=" col-12 col-md-6 col-xl-6">
+              <div class="card">
+                <h5 class=" card-header">Владимир Высоцкий</h5>
+                <div class="card-body">
+                  <h6 class="card-subtitle">3 апреля 1976 года</h6>
+                  <p>
+                    Если б Кащенко, к примеру, лёг лечиться к Пирогову -
+                    Пирогов бы без причины резать Кащенку не стал…
+                  </p>
+                  <a href="" class="btn btn-primary">Читать целиком</a>
+                </div>
+              </div>
+            </article>
+            <!-- Конец четвёртой колонки -->
+          </div>  <!-- Конец вложенного div.row -->
+
+        </section>  <!-- Конец правой (широкой) колонки сайта -->
+      </div>  <!-- Конец div.row  -->
+    </div>  <!-- Конец div.container -->
   </body>
-</html>  '''
+</html>'''
     return HttpResponse(a)
