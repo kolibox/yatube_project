@@ -6,12 +6,49 @@ from django.template import loader
 
 
 # Главная страница
+'''
 def index(request):
     # Загружаем шаблон;
     # шаблоны обычно хранят в отдельной директории.
     template = loader.get_template('yatube/index.html')
     # Формируем шаблон
     return HttpResponse(template.render({}, request))
+'''
+
+
+def index(request):
+    # Адрес шаблона сохраним в переменную, это не обязательно, но удобно
+    template = 'yatube/posts/index.html'
+    # Строку, которую надо вывести на страницу, тоже сохраним в переменную
+    title = 'Анфиса для друзей'
+    # Словарь с данными принято называть context
+    context = {
+        # В словарь можно передать переменную
+        'title': title,
+        # А можно сразу записать значение в словарь. Но обычно так не делают
+        'text': 'Какой-то текст',
+        'list': [1, 2, 3]
+    }
+    # Третьим параметром передаём словарь context
+    return render(request, template, context)
+
+
+def post_num(request, pk):
+    # Адрес шаблона сохраним в переменную, это не обязательно, но удобно
+    template = 'yatube/posts/post_num.html'
+    # Строку, которую надо вывести на страницу, тоже сохраним в переменную
+    title = 'Анфиса для друзей'
+    # Словарь с данными принято называть context
+    context = {
+        # В словарь можно передать переменную
+        'title': title,
+        # А можно сразу записать значение в словарь. Но обычно так не делают
+        'text': 'Какой-то текст',
+        'list': [1, 2, 3],
+        'pk': pk,
+    }
+    # Третьим параметром передаём словарь context
+    return render(request, template, context)
 
 
 def group_list(request):
@@ -20,10 +57,11 @@ def group_list(request):
     return HttpResponse(template.render({}, request))
 
 
-def base(request):
+'''def base(request):
     template = loader.get_template('yatube/base.html')
     # Формируем шаблон
     return HttpResponse(template.render({}, request))
+'''
 
 
 def posts(request):

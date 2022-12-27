@@ -1,0 +1,19 @@
+<!-- templates/ice_cream/index.html --> 
+{% extends '../base.html' %}
+{% block title %}
+    <title>{{ title }}</title>
+{% endblock %}
+
+{% block content %}
+    <h1>{{ text }}</h1>
+    {% if list.0 == 2 %}
+    <h1>1</h1>
+    {% else %}
+    <h1>else</h1>
+    {% endif %} 
+    <a href="{% url 'posts:posts'%}">posts</a>
+    <a href="{% url 'posts:group_list'%}">group_list</a>
+{% endblock %} 
+
+
+
