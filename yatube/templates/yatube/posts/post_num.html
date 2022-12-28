@@ -1,4 +1,7 @@
 post_num.html
-{{ pk }}
 
+{{ pk }}
+{{ text|safe}}
+{{ text|length }}
+{{ date|date:"j F Y" }}
 <a href="{% url 'posts:post' pk %}">posts</a>

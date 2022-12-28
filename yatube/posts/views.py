@@ -3,6 +3,7 @@ from django.shortcuts import render
 # Create your views here.
 from django.http import HttpResponse
 from django.template import loader
+from datetime import date
 
 
 # Главная страница
@@ -43,9 +44,11 @@ def post_num(request, pk):
         # В словарь можно передать переменную
         'title': title,
         # А можно сразу записать значение в словарь. Но обычно так не делают
-        'text': 'Какой-то текст',
+        'text': 'Вчера Крокодил<br>улыбнулся так злобно,<br>Что мне до сих '
+                'пор<br>за него неудобно.<br><i>Рената Муха</i>',
         'list': [1, 2, 3],
         'pk': pk,
+        'date': date.fromisoformat('2019-12-04')
     }
     # Третьим параметром передаём словарь context
     return render(request, template, context)
