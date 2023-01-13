@@ -1,19 +1,29 @@
-<!-- templates/ice_cream/index.html --> 
+<!-- templates/ice_cream/index.html -->
 {% extends '../base.html' %}
 {% block title %}
-    <title>{{ title }}</title>
-{% endblock %}
-
-{% block content %}
-    <h1>{{ text }}</h1>
-    {% if list.0 == 2 %}
-    <h1>1</h1>
-    {% else %}
-    <h1>else</h1>
-    {% endif %} 
-    <a href="{% url 'posts:posts'%}">posts</a>
-    <a href="{% url 'posts:group_list'%}">group_list</a>
+  <title>{{ title }}</title>
 {% endblock %} 
-
-
-
+{% block content %}
+  <h1>{{ text }}</h1>
+  {% for post in posts %}
+    <ul class="list-group">
+      <li class="list-group-item">Автор: {{ post.author.get_full_name }}</li>
+      <li class="list-group-item">Дата публикации: {{ post.pub_date|date:"d E Y" }}</li>
+    </ul>
+    <p>{{ post.text|linebreaks }}</p>
+    {% if post.group %}
+      <a href="{% url 'posts:group' post.group.slug %}">#{{ post.group.title }}</a>
+    {% endif %}
+    {% if not forloop.last %}
+      <hr>
+    {% endif %} 
+  {% endfor %} 
+  {% if list.0 == 2 %}
+    <h2>1</h2>
+  {% else %}
+    <h2>else</h2>
+  {% endif %}
+  <a class="btn btn-primary" href="{% url 'posts:posts'%}">posts</a>
+  <a class="btn btn-primary" href="{% url 'posts:group_list'%}">group_list</a>
+  <a class="btn btn-primary" href="{% url 'posts:post' 1 %}">posts</a>
+{% endblock %}

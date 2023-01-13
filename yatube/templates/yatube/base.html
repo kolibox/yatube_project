@@ -18,17 +18,17 @@
     {% block title %}
     {% endblock %}
   </head>
-  <body>       
-    <header>
+  <body class="min-vh-100 d-flex flex-column">       
+    <header class="min-vh-10">
       {% include './includes/header.html' %}
     </header>
-    <main>
+    <main class='container' style='flex: 1;'>
       {% block content %}
         Контент не подвезли :(
       {% endblock %}
     </main>
-    <footer>
-      {% include './includes/footer.html' %} 
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top m-0 bg-warning text-dark">
+    {% include './includes/footer.html' %} 
     </footer>
   </body>
-</html> 
+</html>

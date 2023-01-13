@@ -1,7 +1,23 @@
-post_num.html
+{% extends '../base.html' %}
+{% block title %}
+    <title>{{ title }}</title>
+{% endblock %}
 
-{{ pk }}
+{% block content %}
+<h3>{{ pk }}</h3>
 {{ text|safe}}
 {{ text|length }}
 {{ date|date:"j F Y" }}
-<a href="{% url 'posts:post' pk %}">posts</a>
+<div class='d-flex flex-wrap align-items-center justify-content-center gap-3'>
+    {% if pk >= 1 %}
+        <a class='btn btn-primary' href="{% url 'posts:post' pk|add:"-1" %}">Предыдущий пост</a>
+    {% else %}
+        <a class='btn btn-primary' href="{% url 'posts:post' 0 %}">Предыдущий пост</a>
+    {% endif %}
+    {% if pk < 9 %}
+        <a class='btn btn-primary' href="{% url 'posts:post' pk|add:"1" %}">Следующий пост</a>
+    {% else %}
+        <a class='btn btn-primary' href="{% url 'posts:post' 10 %}">Следующий пост</a>
+    {% endif %}
+</div>
+{% endblock %} 
